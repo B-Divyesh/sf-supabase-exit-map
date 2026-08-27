@@ -1,0 +1,12 @@
+{
+  "slug": "supabase-exit-map",
+  "title": "Supabase Exit Map",
+  "territory": "devtools-data",
+  "user": "Indie builders crossing managed-backend price thresholds who need a concrete inventory and low-risk migration plan to plain Postgres or self-hosted components.",
+  "smallest_useful_product": "CLI reads Supabase project config/migrations and produces a dependency map, portable SQL checklist, and replacement choices with effort flags.",
+  "success_measure": "A user produces a complete dependency inventory in under 10 minutes and can estimate exit work within one planning session.",
+  "artifact_class": "cli",
+  "monetization": "one-time",
+  "constraints": "Local-only credential handling; API scopes must be read-only; clearly separate open-source feature compatibility from hosted service guarantees.",
+  "non_goals": ["automatic live migration", "hosting", "auth-data exfiltration"]
+}
