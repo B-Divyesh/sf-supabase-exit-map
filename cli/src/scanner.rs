@@ -115,18 +115,6 @@ struct State {
     scope: ScanScope,
 }
 
-impl Default for ScanScope {
-    fn default() -> Self {
-        Self {
-            config_files: 0,
-            sql_files: 0,
-            function_files: 0,
-            bytes_read: 0,
-            live_project_queried: false,
-        }
-    }
-}
-
 impl State {
     fn read(&mut self, root: &Path, path: &Path, kind: FileKind) {
         if !matches_extension(path, kind) {
@@ -180,27 +168,6 @@ impl State {
             let line = raw.trim();
             if line.starts_with('[') && line.ends_with(']') {
                 section = line.trim_matches(&['[', ']'][..]).to_ascii_lowercase();
-                if section == "auth" || section.starts_with("auth.") {
-                    self.add(
-                        "auth.config",
-                        "Authentication configuration",
-                        file,
-                        idx + 1,
-                        line,
-                    );
-                }
-                if section == "storage" || section.starts_with("storage.") {
-                    self.add("storage", "Object storage", file, idx + 1, line);
-                }
-                if section == "realtime" || section.starts_with("realtime.") {
-                    self.add(
-                        "realtime",
-                        "Realtime channels and replication",
-                        file,
-                        idx + 1,
-                        line,
-                    );
-                }
                 if section == "functions"
                     || section.starts_with("functions.")
                     || section == "edge_runtime"
@@ -209,14 +176,27 @@ impl State {
                 }
             }
             let lower = line.to_ascii_lowercase();
+            let compact: String = lower.chars().filter(|c| !c.is_whitespace()).collect();
             if section.starts_with("auth")
-                && (lower.contains("enabled")
+                && (compact == "enabled=true"
                     || lower.contains("redirect")
                     || lower.contains("site_url"))
             {
                 self.add(
                     "auth.config",
                     "Authentication configuration",
+                    file,
+                    idx + 1,
+                    line,
+                );
+            }
+            if section.starts_with("storage") && compact == "enabled=true" {
+                self.add("storage", "Object storage", file, idx + 1, line);
+            }
+            if section.starts_with("realtime") && compact == "enabled=true" {
+                self.add(
+                    "realtime",
+                    "Realtime channels and replication",
                     file,
                     idx + 1,
                     line,
@@ -316,18 +296,14 @@ impl State {
     }
 
     fn scan_function(&mut self, file: &str, content: &str) {
-        let code_ext = matches!(
-            Path::new(file).extension().and_then(|s| s.to_str()),
-            Some("ts" | "tsx" | "js" | "jsx" | "mjs" | "cjs")
-        );
-        if !code_ext {
-            return;
-        }
         let name = Path::new(file)
             .components()
             .nth(1)
             .and_then(|c| c.as_os_str().to_str())
             .unwrap_or("function");
+        if name == "_shared" {
+            return;
+        }
         let mut signals = Vec::new();
         for (idx, raw) in content.lines().enumerate() {
             let lower = raw.to_ascii_lowercase();
@@ -364,9 +340,10 @@ fn matches_extension(path: &Path, kind: FileKind) -> bool {
             .extension()
             .and_then(|s| s.to_str())
             .is_some_and(|s| s.eq_ignore_ascii_case("sql")),
-        FileKind::Function => {
-            !matches!(path.file_name().and_then(|s| s.to_str()), Some(name) if name.starts_with('.'))
-        }
+        FileKind::Function => matches!(
+            path.extension().and_then(|s| s.to_str()),
+            Some("ts" | "tsx" | "js" | "jsx" | "mjs" | "cjs")
+        ),
     }
 }
 

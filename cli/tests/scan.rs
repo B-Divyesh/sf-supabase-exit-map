@@ -140,7 +140,7 @@ fn cli_supports_json_output_files_and_strict_exit_code() {
         .arg(empty.path())
         .arg("--strict")
         .arg("--json")
-        .status()
+        .output()
         .unwrap();
-    assert_eq!(strict.code(), Some(3));
+    assert_eq!(strict.status.code(), Some(3));
 }

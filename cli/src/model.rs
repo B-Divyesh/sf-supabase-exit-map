@@ -104,7 +104,7 @@ pub struct ChecklistItem {
     pub required: bool,
 }
 
-#[derive(Debug, Clone, Serialize, PartialEq, Eq)]
+#[derive(Debug, Clone, Default, Serialize, PartialEq, Eq)]
 pub struct ScanScope {
     pub config_files: usize,
     pub sql_files: usize,
