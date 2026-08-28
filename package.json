@@ -5,11 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite --config vite.config.ts",
-    "test": "cargo test --workspace && node --test site/tests/*.test.mjs",
+    "preview": "vite preview --config vite.config.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "cargo test --workspace && npm run typecheck && npm run build:site && node --test site/tests/*.test.mjs && playwright test",
     "build": "npm run build:site && cargo build --release --workspace",
     "build:site": "vite build --config vite.config.ts"
   },
   "devDependencies": {
+    "@playwright/test": "1.58.2",
+    "@axe-core/playwright": "4.11.0",
     "typescript": "^5.6.3",
     "vite": "^6.1.0"
   }

@@ -42,3 +42,30 @@ test("motion and focus baselines are explicit", async () => {
   assert.match(css, /min-height: 44px/);
   assert.match(css, /color-scheme: dark/);
 });
+
+test("production service worker precaches every built module and stylesheet", async () => {
+  const sw = await readFile(new URL("../../dist/site/sw.js", import.meta.url), "utf8");
+  const shellMatch = sw.match(/const SHELL = ([\s\S]+?);\n\nself\.addEventListener/u);
+  assert.ok(shellMatch, "service worker has a serialized precache shell");
+  const shell = JSON.parse(shellMatch[1]);
+  assert.match(sw, /const VERSION = "sem-shell-[a-f0-9]{12}"/);
+  assert.match(sw, /event\.request\.mode === "navigate" \? caches\.match\("\/"\) : Response\.error\(\)/);
+
+  for (const page of ["index.html", "privacy/index.html", "terms/index.html"]) {
+    const html = await readFile(new URL(`../../dist/site/${page}`, import.meta.url), "utf8");
+    const assets = [...html.matchAll(/(?:src|href)="(\/assets\/[^"]+\.(?:js|css))"/gu)].map((match) => match[1]);
+    assert.ok(assets.length > 0, `${page} references built assets`);
+    for (const asset of assets) assert.ok(shell.includes(asset), `${asset} is precached`);
+  }
+});
+
+test("Azure deployment configuration preserves cache and response policy", async () => {
+  const config = JSON.parse(await readFile(new URL("../public/staticwebapp.config.json", import.meta.url), "utf8"));
+  assert.equal(config.globalHeaders["X-Frame-Options"], "DENY");
+  assert.equal(config.globalHeaders["Permissions-Policy"], "camera=(), microphone=(), geolocation=()");
+  assert.match(config.globalHeaders["Content-Security-Policy"], /connect-src 'self' https:\/\/api\.sociobot\.in/);
+  assert.match(config.globalHeaders["Content-Security-Policy"], /frame-ancestors 'none'/);
+  for (const route of ["/assets/*", "/*.js", "/*.css"]) {
+    assert.equal(config.routes.find((item) => item.route === route)?.headers["Cache-Control"], "public, max-age=31536000, immutable");
+  }
+});

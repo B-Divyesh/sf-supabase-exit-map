@@ -167,7 +167,7 @@ function buildPlan(report: ExitReport, choices: Plan["choices"] = []) {
 }
 
 function readChoices(): Plan["choices"] {
-  return Array.from(byId("plan-body").rows).map((row) => ({
+  return Array.from(byId<HTMLTableSectionElement>("plan-body").rows).map((row) => ({
     replacement: (row.cells[1].querySelector("select") as HTMLSelectElement).value,
     owner: (row.cells[2].querySelector("input") as HTMLInputElement).value,
     status: (row.cells[3].querySelector("select") as HTMLSelectElement).value

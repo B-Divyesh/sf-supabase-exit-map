@@ -93,13 +93,14 @@ h3 { margin: 0 0 8px; font-size: 1.35rem; line-height: 1.2; }
 .section { padding: 96px 0; border-bottom: 1px solid var(--hairline); }
 .section-heading { display: grid; grid-template-columns: minmax(0, 0.75fr) minmax(280px, 1fr); gap: 64px; margin-bottom: 48px; }
 .section-heading p { max-width: 600px; margin: 4px 0 0; color: var(--slate); }
-.install { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+.install { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+.install > * { min-width: 0; }
 .steps { list-style: none; margin: 0; padding: 0; counter-reset: steps; }
 .steps li { display: grid; grid-template-columns: 40px 1fr; gap: 16px; padding: 20px 0; border-top: 1px solid var(--hairline); }
 .steps li::before { counter-increment: steps; content: counter(steps, decimal-leading-zero); color: var(--meltwater); font: 700 13px var(--sans); letter-spacing: 0.08em; }
 .steps p { margin: 4px 0 0; color: var(--slate); }
-.code-block { position: relative; min-width: 0; padding: 24px; background: #10211e; color: #eaf5f1; border-radius: 4px; box-shadow: 0 18px 45px var(--shadow); overflow-x: auto; font: 14px/1.7 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-.code-block pre { margin: 0; min-width: max-content; }
+.code-block { position: relative; min-width: 0; max-width: 100%; padding: 24px; background: #10211e; color: #eaf5f1; border-radius: 4px; box-shadow: 0 18px 45px var(--shadow); overflow-x: auto; font: 14px/1.7 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.code-block pre { width: max-content; min-width: 100%; margin: 0; }
 .copy { position: absolute; top: 8px; right: 8px; min-width: 72px; padding: 6px 10px; border: 1px solid #58736b; border-radius: 3px; background: #19322d; color: #fff; cursor: pointer; }
 .map { border-top: 1px solid var(--hairline); }
 .tabs { display: flex; flex-wrap: wrap; gap: 8px; padding: 20px 0; }
