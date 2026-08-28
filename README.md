@@ -56,18 +56,22 @@ Every finding carries evidence, portability, effort, a plain-Postgres or self-ho
 Requirements: Rust 1.78+ and Node.js 20+.
 
 ```sh
-npm install
-npm test
+npm ci
+PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers npm test
 npm run build
 ```
 
-`npm test` runs Rust unit/integration tests plus site tests. `npm run build` creates the static site in `dist/site/` and a release CLI in `target/release/`. Run the site locally with `npm run dev`; build only the deployable site with `npm run build:site`.
+`npm test` runs Rust unit/integration tests, strict TypeScript checking, built-site checks, and Chromium browser/axe tests. Outside the factory environment, install the browser once with `npx playwright install chromium`. `npm run build` creates the static site in `dist/site/` and a release CLI in `target/release/`. Run the site locally with `npm run dev`; build only the deployable site with `npm run build:site`.
 
 Create the ready-to-publish Rust package without publishing it:
 
 ```sh
 cargo package --manifest-path cli/Cargo.toml
 ```
+
+## Deploy
+
+The factory deploys this as a static Azure Static Web Apps artifact. Build `dist/site/` with `npm ci && npm run build:site`; `site/public/staticwebapp.config.json` is copied into that artifact and supplies the cache and response-security policy. The factory owns deployment credentials, so do not publish or deploy it manually outside the work order.
 
 ## Privacy and limits
 
