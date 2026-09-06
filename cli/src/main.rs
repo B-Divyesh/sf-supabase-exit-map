@@ -1,6 +1,6 @@
 use clap::{Parser, ValueEnum};
 use std::fs;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 use supabase_exit_map::{report, scan_project};
 
@@ -21,8 +21,12 @@ enum Format {
 )]
 struct Cli {
     /// Project root or Supabase directory to scan
-    #[arg(default_value = ".", value_name = "PATH")]
-    path: PathBuf,
+    #[arg(value_name = "PATH")]
+    path: Option<PathBuf>,
+
+    /// Run the bundled sample in a new temporary directory
+    #[arg(long, conflicts_with = "path")]
+    demo: bool,
 
     /// Report format written to stdout (or --output)
     #[arg(long, value_enum, default_value_t = Format::Terminal)]
@@ -43,7 +47,22 @@ struct Cli {
 
 fn main() -> ExitCode {
     let cli = Cli::parse();
-    let scanned = match scan_project(&cli.path) {
+    let demo = if cli.demo {
+        match materialize_demo() {
+            Ok(value) => Some(value),
+            Err(error) => {
+                eprintln!("error: could not create bundled demo: {error}");
+                return ExitCode::from(2);
+            }
+        }
+    } else {
+        None
+    };
+    let input = demo
+        .as_deref()
+        .or(cli.path.as_deref())
+        .unwrap_or_else(|| Path::new("."));
+    let scanned = match scan_project(input) {
         Ok(value) => value,
         Err(error) => {
             eprintln!("error: {error}");
@@ -62,10 +81,24 @@ fn main() -> ExitCode {
         },
         Format::Markdown => report::markdown(&scanned),
     };
-    if let Some(path) = cli.output {
-        if let Err(error) = fs::write(&path, format!("{rendered}\n")) {
+    let demo_report = demo
+        .as_ref()
+        .map(|root| root.join(format!("exit-map-demo.{}", extension(format))));
+    let output = cli.output.as_ref().or(demo_report.as_ref());
+    if let Some(path) = output {
+        if let Err(error) = fs::write(path, format!("{rendered}\n")) {
             eprintln!("error: could not write {}: {error}", path.display());
             return ExitCode::from(2);
+        }
+        if cli.demo {
+            eprintln!(
+                "Bundled sample copied to {}",
+                demo.as_ref().expect("demo root").display()
+            );
+            eprintln!("Demo report written to {}", path.display());
+            if cli.output.is_none() {
+                println!("{rendered}");
+            }
         }
     } else {
         println!("{rendered}");
@@ -76,3 +109,49 @@ fn main() -> ExitCode {
         ExitCode::SUCCESS
     }
 }
+
+fn extension(format: Format) -> &'static str {
+    match format {
+        Format::Terminal => "txt",
+        Format::Json => "json",
+        Format::Markdown => "md",
+    }
+}
+
+fn materialize_demo() -> std::io::Result<PathBuf> {
+    let unique = format!(
+        "supabase-exit-map-demo-{}-{}",
+        std::process::id(),
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap_or_default()
+            .as_nanos()
+    );
+    let root = std::env::temp_dir().join(unique);
+    let supabase = root.join("supabase");
+    fs::create_dir_all(supabase.join("migrations"))?;
+    fs::create_dir_all(supabase.join("functions/send-mail"))?;
+    for (relative, contents) in DEMO_FILES {
+        let path = root.join(relative);
+        if let Some(parent) = path.parent() {
+            fs::create_dir_all(parent)?;
+        }
+        fs::write(path, contents)?;
+    }
+    Ok(root)
+}
+
+const DEMO_FILES: &[(&str, &str)] = &[
+    (
+        "supabase/config.toml",
+        include_str!("../examples/demo-project/supabase/config.toml"),
+    ),
+    (
+        "supabase/migrations/20260906000000_workspace.sql",
+        include_str!("../examples/demo-project/supabase/migrations/20260906000000_workspace.sql"),
+    ),
+    (
+        "supabase/functions/send-mail/index.ts",
+        include_str!("../examples/demo-project/supabase/functions/send-mail/index.ts"),
+    ),
+];

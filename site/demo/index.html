@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Run the bundled Supabase sample and review its exit dependency report.">
+    <meta name="theme-color" content="#f2f6f4">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Demo — Supabase Exit Map">
+    <meta property="og:description" content="Run the bundled Supabase sample and review its exit dependency report.">
+    <meta property="og:url" content="https://supabase-exit-map.sociobot.in/demo/">
+    <meta property="og:image" content="https://supabase-exit-map.sociobot.in/assets/exit-map-social.webp">
+    <meta property="og:image:alt" content="Ceramic forms follow a route from a managed service to a database.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Demo — Supabase Exit Map">
+    <meta name="twitter:description" content="Run the bundled Supabase sample and review its exit dependency report.">
+    <meta name="twitter:image" content="https://supabase-exit-map.sociobot.in/assets/exit-map-social.webp">
+    <link rel="canonical" href="https://supabase-exit-map.sociobot.in/demo/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <title>Demo — Supabase Exit Map</title>
+    <script type="module" src="/src/demo.ts"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <nav class="nav shell" aria-label="Primary">
+        <a class="brand" href="/" aria-label="Supabase Exit Map home"><span class="brand-mark" aria-hidden="true"></span>Supabase Exit Map</a>
+        <div class="nav-links"><a href="/">Home</a><a href="#report">Sample report</a><a href="/privacy/">Privacy</a></div>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="demo-banner shell" aria-label="Demo mode">
+        <p><strong>Demo — sample data, nothing is saved</strong></p>
+        <div class="actions"><button class="button secondary" type="button" id="reset-demo">Reset demo</button><a class="button" href="/#install">Start for real</a></div>
+      </section>
+      <section class="hero shell demo-hero" aria-labelledby="demo-title">
+        <p class="eyebrow">Bundled sample</p>
+        <h1 id="demo-title">Review a sample Supabase exit report</h1>
+        <p class="lede">This sample includes authentication, storage, realtime, SQL policies, and an Edge Function.</p>
+        <div class="demo-command" aria-label="Demo command"><code>supabase-exit-map --demo --format markdown</code><span>Creates a temporary sample project and report.</span></div>
+      </section>
+      <section class="section" id="report" aria-labelledby="report-title">
+        <div class="shell">
+          <div class="section-heading"><div><p class="eyebrow">Populated output</p><h2 id="report-title">Eleven dependencies need review</h2></div><p>Each item includes local evidence, effort, and the next decision to make.</p></div>
+          <div class="demo-summary" id="demo-summary" aria-live="polite"></div>
+          <ol class="demo-findings" id="demo-findings"></ol>
+          <aside class="boundary"><h3>Before a cutover</h3><p>Check dashboard settings, live data size, and service limits with read-only access.</p></aside>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><div class="shell footer-grid"><p>Local Supabase dependency planning. Version 0.1.0.</p><div class="footer-links"><a href="/">Home</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><span>Built by Param Factory</span></div></div></footer>
+  </body>
+</html>

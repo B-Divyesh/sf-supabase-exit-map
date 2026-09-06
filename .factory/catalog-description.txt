@@ -1,0 +1,1 @@
+Map Supabase dependencies before you migrate to Postgres or self-hosted services.

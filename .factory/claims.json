@@ -1,0 +1,100 @@
+[
+  {
+    "id": "cli-demo",
+    "claim": "The bundled demo creates an isolated temporary report from shipped sample files.",
+    "where": "Landing install section, README",
+    "test": "node --test --test-name-pattern='@claim:cli-demo' site/tests/claims.test.mjs",
+    "sandbox": "fresh process; supabase-exit-map --demo --json; parse stdout and the printed temporary report"
+  },
+  {
+    "id": "dependency-inventory",
+    "claim": "The CLI reports dependency evidence, effort, replacement choices, and a checklist.",
+    "where": "Landing how-it-works and sample report, README",
+    "test": "node --test --test-name-pattern='@claim:dependency-inventory' site/tests/claims.test.mjs",
+    "sandbox": "bundled demo JSON; assert representative findings and report fields"
+  },
+  {
+    "id": "cli-paths",
+    "claim": "The CLI accepts a project root or its supabase directory.",
+    "where": "Landing how-it-works, README",
+    "test": "node --test --test-name-pattern='@claim:cli-paths' site/tests/claims.test.mjs",
+    "sandbox": "bundled sample invoked once from each documented path"
+  },
+  {
+    "id": "cli-output",
+    "claim": "The CLI writes JSON and Markdown reports.",
+    "where": "Landing install section, README",
+    "test": "node --test --test-name-pattern='@claim:cli-output' site/tests/claims.test.mjs",
+    "sandbox": "bundled sample writes JSON and Markdown to a fresh temporary directory"
+  },
+  {
+    "id": "cli-errors",
+    "claim": "The CLI uses exit code 2 for invalid input and 3 for strict scan warnings.",
+    "where": "README",
+    "test": "node --test --test-name-pattern='@claim:cli-errors' site/tests/claims.test.mjs",
+    "sandbox": "missing path and empty temporary directory"
+  },
+  {
+    "id": "local-scan",
+    "claim": "The CLI scans the bundled local files without a Supabase credential.",
+    "where": "Landing first screen and limits section, README",
+    "test": "node --test --test-name-pattern='@claim:local-scan' site/tests/claims.test.mjs",
+    "sandbox": "bundled demo with an empty SUPABASE_ACCESS_TOKEN; assert a local-only report"
+  },
+  {
+    "id": "no-cli-network",
+    "claim": "The CLI does not make network requests while scanning local files.",
+    "where": "CLI help, README, privacy notice",
+    "test": "node --test --test-name-pattern='@claim:no-cli-network' site/tests/claims.test.mjs",
+    "sandbox": "bundled demo behind a recording HTTP(S) proxy; assert no proxy requests and no HTTP client dependency"
+  },
+  {
+    "id": "read-only-scan",
+    "claim": "The CLI leaves input files unchanged and does not include auth-data files in its report.",
+    "where": "Landing limits section, README, privacy notice",
+    "test": "node --test --test-name-pattern='@claim:read-only-scan' site/tests/claims.test.mjs",
+    "sandbox": "temporary project with SQL and a sentinel auth users file; compare input contents and report output"
+  },
+  {
+    "id": "offline-reload",
+    "claim": "The guide works offline after its first visit.",
+    "where": "Landing first-screen facts, privacy notice",
+    "test": "npm run build:site && PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers npx playwright test -g '@claim:offline-reload'",
+    "sandbox": "fresh browser context; first visit; wait for service worker; offline reload"
+  },
+  {
+    "id": "demo-sandbox",
+    "claim": "The demo shows a populated sample report and uses a separate demo storage key.",
+    "where": "Demo page",
+    "test": "npm run build:site && PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers npx playwright test -g '@claim:demo-sandbox'",
+    "sandbox": "fresh browser context at /demo/; inspect eleven findings, reset action, and localStorage"
+  },
+  {
+    "id": "site-privacy",
+    "claim": "The demo page makes no third-party requests.",
+    "where": "Landing first-screen facts, privacy notice",
+    "test": "npm run build:site && PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers npx playwright test -g '@claim:site-privacy'",
+    "sandbox": "fresh browser context at /demo/; record each request origin"
+  },
+  {
+    "id": "license-restore",
+    "claim": "A valid returned license unlocks Planning Room on that browser.",
+    "where": "Planning Room restore form, terms",
+    "test": "npm run build:site && PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers npx playwright test -g '@claim:license-restore'",
+    "sandbox": "recorded valid verifier response; license query parameter; inspect local unlock and cleaned URL"
+  },
+  {
+    "id": "local-planning",
+    "claim": "Planning Room saves an imported plan in browser storage without uploading the report.",
+    "where": "Planning Room, privacy notice",
+    "test": "npm run build:site && PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers npx playwright test -g '@claim:local-planning'",
+    "sandbox": "recorded valid verifier response; load sample plan; save; inspect storage and outgoing request bodies"
+  },
+  {
+    "id": "planning-price",
+    "claim": "Planning Room is displayed as a USD $19 one-time license and does not link to the unregistered checkout.",
+    "where": "Landing Planning Room section, terms",
+    "test": "npm run build:site && PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers npx playwright test -g '@claim:planning-price'",
+    "sandbox": "fresh browser at the Planning Room section; inspect the price, pending status, and purchase-link absence"
+  }
+]

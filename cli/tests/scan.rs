@@ -144,3 +144,28 @@ fn cli_supports_json_output_files_and_strict_exit_code() {
         .unwrap();
     assert_eq!(strict.status.code(), Some(3));
 }
+
+#[test]
+fn demo_uses_bundled_sample_in_a_separate_temp_directory() {
+    let output = Command::new(env!("CARGO_BIN_EXE_supabase-exit-map"))
+        .arg("--demo")
+        .arg("--json")
+        .output()
+        .unwrap();
+    assert!(
+        output.status.success(),
+        "{}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    let report: serde_json::Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(report["scope"]["live_project_queried"], false);
+    assert!(report["findings"].as_array().unwrap().len() >= 10);
+
+    let stderr = String::from_utf8_lossy(&output.stderr);
+    let report_path = stderr
+        .lines()
+        .find_map(|line| line.strip_prefix("Demo report written to "))
+        .expect("demo report path is printed");
+    assert!(Path::new(report_path).is_file());
+    assert!(report_path.contains("supabase-exit-map-demo-"));
+}

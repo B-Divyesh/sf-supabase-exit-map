@@ -1,0 +1,17 @@
+project_id = "exit-map-demo"
+
+[auth]
+enabled = true
+site_url = "https://app.example.test"
+
+[auth.external.github]
+enabled = true
+
+[storage]
+enabled = true
+
+[realtime]
+enabled = true
+
+[functions.send-mail]
+verify_jwt = true

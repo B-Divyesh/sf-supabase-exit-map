@@ -3,22 +3,37 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Inventory Supabase dependencies and plan a lower-risk move to plain Postgres or self-hosted components. Local-only, open-source CLI.">
+    <meta name="description" content="Inspect local Supabase files and plan an exit to Postgres or self-hosted components.">
     <meta name="theme-color" content="#f2f6f4">
-    <title>Supabase Exit Map — know what has to move</title>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Supabase Exit Map — plan a Supabase exit">
+    <meta property="og:description" content="Inspect local Supabase files and plan an exit to Postgres or self-hosted components.">
+    <meta property="og:url" content="https://supabase-exit-map.sociobot.in/">
+    <meta property="og:image" content="https://supabase-exit-map.sociobot.in/assets/exit-map-social.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Ceramic forms follow a route from a managed service to a database.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Supabase Exit Map — plan a Supabase exit">
+    <meta name="twitter:description" content="Inspect local Supabase files and plan an exit to Postgres or self-hosted components.">
+    <meta name="twitter:image" content="https://supabase-exit-map.sociobot.in/assets/exit-map-social.webp">
+    <link rel="canonical" href="https://supabase-exit-map.sociobot.in/">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <title>Supabase Exit Map — plan a Supabase exit</title>
     <script type="module" src="/src/main.ts"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
-    <div class="offline" id="offline-notice" role="status" hidden>You’re offline. The guide still works; license checks will resume when you reconnect.</div>
+    <div class="offline" id="offline-notice" role="status" hidden>You’re offline. The guide is available. License checks resume when you reconnect.</div>
     <header class="site-header">
       <nav class="nav shell" aria-label="Primary">
-        <a class="brand" href="/" aria-label="Supabase Exit Map home"><span class="brand-mark" aria-hidden="true"></span>Exit Map</a>
+        <a class="brand" href="/" aria-label="Supabase Exit Map home"><span class="brand-mark" aria-hidden="true"></span>Supabase Exit Map</a>
         <div class="nav-links">
-          <a href="#how-it-works">How it works</a>
-          <a href="#sample">Sample map</a>
-          <a class="nav-buy" href="#planning-room">Planning Room</a>
+          <a href="/demo/">Demo</a>
+          <a href="#install">Install</a>
+          <a href="#sample">Sample report</a>
+          <a href="/privacy/">Privacy</a>
           <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch theme">◐</button>
         </div>
       </nav>
@@ -26,32 +41,37 @@
 
     <main id="main">
       <section class="hero shell" aria-labelledby="hero-title">
-        <p class="eyebrow">Local-only migration inventory · v0.1</p>
-        <h1 id="hero-title">Know what has to move before you move it.</h1>
-        <p class="lede">Scan a Supabase project in seconds. Get the managed dependencies, portable SQL checks, replacement routes, and honest effort flags you need for one planning session.</p>
-        <div class="actions">
-          <a class="button" href="#install">Install the CLI <span aria-hidden="true">↓</span></a>
-          <a class="button secondary" href="#sample">Read a sample map</a>
+        <p class="eyebrow">Local CLI · v0.1.0</p>
+        <h1 id="hero-title">Map Supabase dependencies before you migrate</h1>
+        <p class="lede">For indie builders facing managed-backend costs who need a safe exit plan.</p>
+        <div class="actions hero-actions">
+          <a class="button" href="/demo/">Try it with sample data <span aria-hidden="true">→</span></a>
+          <p class="action-note">Runs the bundled project and shows a populated dependency report.</p>
         </div>
+        <ul class="hero-facts" aria-label="Product facts">
+          <li>Privacy: no site analytics.</li>
+          <li>Offline: the guide works after its first visit.</li>
+          <li>Price: the CLI is free; Planning Room is $19 once when checkout opens.</li>
+        </ul>
         <figure class="hero-visual">
           <picture>
             <source media="(max-width: 700px)" srcset="/assets/exit-route-900.webp">
             <img src="/assets/exit-route.webp" width="1536" height="1024" alt="Handmade ceramic database, key, file, and signal forms branching from an ice monolith along a dark route" fetchpriority="high">
           </picture>
-          <figcaption class="image-note">One managed block becomes a route you can inspect, sequence, and own.</figcaption>
+          <figcaption class="image-note">Inspect each dependency before choosing a target.</figcaption>
         </figure>
       </section>
 
       <section class="section" id="how-it-works">
         <div class="shell">
           <div class="section-heading">
-            <div><p class="eyebrow">01 / Survey</p><h2>A map, not a migration button.</h2></div>
-            <p>The CLI reads only local files: config, migrations, seed SQL, and Edge Function source. It never asks for a project token and never touches production data.</p>
+            <div><p class="eyebrow">How it works</p><h2>Inspect local project files</h2></div>
+            <p>The CLI reads Supabase config, SQL migrations, and Edge Function source from the path you choose.</p>
           </div>
           <ol class="steps">
-            <li><div><h3>Locate the managed edges</h3><p>Auth claims, object storage, realtime publications, functions, cron, Vault, network calls, extensions, policies, and triggers.</p></div></li>
-            <li><div><h3>Separate compatibility from service</h3><p>Each finding says what open-source code can move and which backups, scaling, delivery, or operational guarantees cannot.</p></div></li>
-            <li><div><h3>Sequence the exit</h3><p>Replacement choices, effort, file-and-line evidence, and a restore/cutover checklist become a Markdown, JSON, or terminal report.</p></div></li>
+            <li><div><h3>Run the scan</h3><p>Point the CLI at a project root or its <code>supabase</code> directory.</p></div></li>
+            <li><div><h3>Review each dependency</h3><p>See file evidence, effort, replacement choices, and hosted-service limits.</p></div></li>
+            <li><div><h3>Plan the work</h3><p>Use the checklist before a restore test or cutover rehearsal.</p></div></li>
           </ol>
         </div>
       </section>
@@ -59,32 +79,35 @@
       <section class="section" id="install">
         <div class="shell">
           <div class="section-heading">
-            <div><p class="eyebrow">02 / Run locally</p><h2>Ten minutes to a useful inventory.</h2></div>
-            <p>Build the single Rust binary from source today. Release archives follow the same no-telemetry, no-network scanner. Works from a project root or its <code>supabase/</code> directory.</p>
+            <div><p class="eyebrow">Install and run</p><h2>Run the CLI on your project</h2></div>
+            <p>Install from source, then write a Markdown or JSON report for your planning work.</p>
           </div>
           <div class="install">
             <div>
               <h3>Install from source</h3>
-              <p>Requires Rust 1.78 or newer. The package is MIT licensed.</p>
-              <div class="code-block"><button class="copy" type="button" data-copy="cargo install --git https://github.com/B-Divyesh/sf-supabase-exit-map">Copy</button><pre><code>cargo install --git \
+              <p>Install the CLI from source on a machine with Rust.</p>
+              <div class="code-block"><button class="copy" type="button" data-copy="cargo install --git https://github.com/B-Divyesh/sf-supabase-exit-map">Copy</button><pre tabindex="0"><code>cargo install --git \
   https://github.com/B-Divyesh/sf-supabase-exit-map</code></pre></div>
             </div>
             <div>
-              <h3>Scan and export</h3>
-              <p>The JSON schema is versioned for scripts; Markdown is ready for an issue tracker.</p>
-              <div class="code-block"><button class="copy" type="button" data-copy="supabase-exit-map . --format markdown --output exit-plan.md">Copy</button><pre><code>supabase-exit-map . \
-  --format markdown \
-  --output exit-plan.md</code></pre></div>
+              <h3>Run the bundled sample</h3>
+              <p><code>--demo</code> copies the sample into a new temporary directory and prints the report path.</p>
+              <div class="code-block"><button class="copy" type="button" data-copy="supabase-exit-map --demo --format markdown">Copy</button><pre tabindex="0"><code>supabase-exit-map --demo \
+  --format markdown</code></pre></div>
             </div>
           </div>
+          <figure class="terminal-recording">
+            <img src="/assets/demo-terminal.svg" width="1040" height="438" alt="Terminal recording of the bundled demo creating a report with eleven Supabase dependency findings.">
+            <figcaption>The recording uses the bundled sample. Read the same output on the <a href="/demo/">interactive demo page</a>.</figcaption>
+          </figure>
         </div>
       </section>
 
       <section class="section" id="sample">
         <div class="shell">
           <div class="section-heading">
-            <div><p class="eyebrow">03 / Example output</p><h2>The hard parts, with evidence.</h2></div>
-            <p>This representative map comes from a project with social login, object uploads, database policies, realtime notes, and one mail function. Filter it like you would read a real report.</p>
+            <div><p class="eyebrow">Sample report</p><h2>Review populated findings</h2></div>
+            <p>The sample identifies dependencies that change the order and cost of an exit.</p>
           </div>
           <div class="map">
             <div class="tabs" role="tablist" aria-label="Filter sample dependencies">
@@ -93,59 +116,57 @@
               <button class="tab" role="tab" aria-selected="false" data-filter="managed" id="tab-managed" tabindex="-1">Managed edges 4</button>
             </div>
             <div id="findings" role="tabpanel" aria-labelledby="tab-all">
-              <article class="finding" data-group="managed"><div class="finding-index">01</div><div><h3>Authentication</h3><span class="tag high">High effort · replace</span></div><div><p><strong>Evidence</strong> <code>config.toml:18</code> GitHub provider; <code>profiles.sql:7</code> references <code>auth.users</code>.</p><ul class="route"><li>Inventory providers, sessions, hooks, MFA, redirects, SMTP</li><li>Route: self-host GoTrue, Keycloak, or application auth</li><li>Rehearse supported user and session transfer</li></ul></div></article>
-              <article class="finding" data-group="managed"><div class="finding-index">02</div><div><h3>Object storage</h3><span class="tag high">High effort · replace</span></div><div><p><strong>Evidence</strong> <code>files.sql:4</code> creates bucket; three policies use <code>storage.objects</code>.</p><ul class="route"><li>Count and hash objects with read-only access</li><li>Route: S3, R2, or MinIO plus policy adapter</li><li>Test signed URLs, cache, transforms, and restore</li></ul></div></article>
-              <article class="finding" data-group="managed"><div class="finding-index">03</div><div><h3>Realtime</h3><span class="tag medium">Medium effort · replace</span></div><div><p><strong>Evidence</strong> <code>notes.sql:39</code> adds a publication; client subscribes to update events.</p><ul class="route"><li>Measure fan-out, connection count, presence, and broadcast</li><li>Route: Supabase Realtime or an application websocket</li><li>Monitor slots and replication lag</li></ul></div></article>
-              <article class="finding" data-group="managed"><div class="finding-index">04</div><div><h3>Edge Function</h3><span class="tag medium">Medium effort · adapt</span></div><div><p><strong>Evidence</strong> <code>send-mail/index.ts:1</code> uses a Supabase client, Deno secret, and outbound fetch.</p><ul class="route"><li>Record secret names only; rotate values at cutover</li><li>Route: Deno, Hono/Node, or a small container</li><li>Add runtime, retry, timeout, and observability tests</li></ul></div></article>
-              <article class="finding" data-group="database"><div class="finding-index">05</div><div><h3>Row-level security</h3><span class="tag medium">Medium effort · adapt</span></div><div><p><strong>Evidence</strong> Four policies call <code>auth.uid()</code> and expect <code>authenticated</code>.</p><ul class="route"><li>Native Postgres RLS is portable SQL</li><li>Replace Supabase claim shape and roles</li><li>Run allow-and-deny regression cases</li></ul></div></article>
-              <article class="finding" data-group="database"><div class="finding-index">06</div><div><h3>Functions &amp; triggers</h3><span class="tag low">Low effort · portable</span></div><div><p><strong>Evidence</strong> Two PL/pgSQL functions and one trigger; one is <code>SECURITY DEFINER</code>.</p><ul class="route"><li>Restore native Postgres SQL in dependency order</li><li>Audit owners and fixed search paths</li><li>Run behavior tests under target roles</li></ul></div></article>
+              <article class="finding" data-group="managed"><div class="finding-index">01</div><div><h3>Authentication</h3><span class="tag high">High effort · replace</span></div><div><p><strong>Evidence</strong> <code>config.toml:18</code> enables GitHub login.</p><ul class="route"><li>List providers, sessions, redirects, and mail.</li><li>Choose an auth service or application auth.</li></ul></div></article>
+              <article class="finding" data-group="managed"><div class="finding-index">02</div><div><h3>Object storage</h3><span class="tag high">High effort · replace</span></div><div><p><strong>Evidence</strong> <code>files.sql:4</code> creates a bucket and policies.</p><ul class="route"><li>Count and hash objects with read-only access.</li><li>Test signed URLs and restore behavior.</li></ul></div></article>
+              <article class="finding" data-group="managed"><div class="finding-index">03</div><div><h3>Realtime</h3><span class="tag medium">Medium effort · replace</span></div><div><p><strong>Evidence</strong> <code>notes.sql:39</code> adds a publication.</p><ul class="route"><li>Measure fan-out and connection count.</li><li>Test a replacement websocket route.</li></ul></div></article>
+              <article class="finding" data-group="managed"><div class="finding-index">04</div><div><h3>Edge Function</h3><span class="tag medium">Medium effort · adapt</span></div><div><p><strong>Evidence</strong> <code>send-mail/index.ts:1</code> uses secrets and outbound fetch.</p><ul class="route"><li>Record secret names and rotate values.</li><li>Add retry and timeout tests.</li></ul></div></article>
+              <article class="finding" data-group="database"><div class="finding-index">05</div><div><h3>Row-level security</h3><span class="tag medium">Medium effort · adapt</span></div><div><p><strong>Evidence</strong> Policies call <code>auth.uid()</code>.</p><ul class="route"><li>Keep native Postgres RLS.</li><li>Replace Supabase claim shapes and roles.</li></ul></div></article>
+              <article class="finding" data-group="database"><div class="finding-index">06</div><div><h3>Functions and triggers</h3><span class="tag low">Low effort · portable</span></div><div><p><strong>Evidence</strong> Two routines and one trigger use PL/pgSQL.</p><ul class="route"><li>Restore SQL in dependency order.</li><li>Audit owners and search paths.</li></ul></div></article>
             </div>
           </div>
-          <aside class="boundary" aria-label="Analysis boundary"><h3>Compatibility is not a hosting guarantee</h3><p>“Self-hostable” describes source availability. It does not recreate managed backups, mail delivery, abuse controls, scaling, recovery, observability, or on-call response. The report names both sides so your estimate includes operations.</p></aside>
+          <aside class="boundary" aria-label="Analysis boundary"><h3>What self-hosting does not provide</h3><p>Open-source compatibility does not include managed backups, scaling, security response, or support.</p></aside>
+        </div>
+      </section>
+
+      <section class="section" id="limits">
+        <div class="shell">
+          <div class="section-heading"><div><p class="eyebrow">Limits and privacy</p><h2>What the CLI does not do</h2></div><p>It helps you plan an exit. It does not migrate a live project or copy authentication data.</p></div>
+          <div class="boundary"><h3>Check the live system separately</h3><p>Dashboard settings, dynamic SQL, data size, sessions, and object bytes need read-only checks before cutover.</p></div>
         </div>
       </section>
 
       <section class="section" id="planning-room">
         <div class="shell">
           <div class="price-layout">
-            <div><p class="eyebrow">Optional / One time</p><h2>Turn the map into a cutover room.</h2><p class="price">$19 <small>one-time</small></p></div>
+            <div><p class="eyebrow">Planning Room</p><h2>Assign exit work locally</h2><p class="price">$19 <small>one time</small></p></div>
             <div>
-              <p>The open-source CLI and every export stay free. Planning Room adds a private browser workspace for assigning owners, choosing replacement routes, tracking decisions, and printing a cutover sheet.</p>
-              <ul class="feature-list"><li>Import any Exit Map JSON report</li><li>Choose a replacement, owner, and status per finding</li><li>Save locally on this device and print a clean plan</li><li>Future Planning Room updates included</li></ul>
-              <div class="actions"><a class="button" href="https://api.sociobot.in/api/v1/products/supabase-exit-map/checkout" id="buy-link">Buy Planning Room</a></div>
+              <p>Planning Room adds local report import, replacement choices, owners, statuses, and a printable cutover sheet.</p>
+              <ul class="feature-list"><li>Import an Exit Map JSON report.</li><li>Assign a replacement, owner, and status.</li><li>Save the plan in this browser.</li><li>Print the completed plan.</li></ul>
+              <p class="status" id="checkout-status" role="status">Checkout registration is pending. A paid license cannot be purchased yet.</p>
               <div class="license-box">
                 <h3>Restore a purchase</h3>
                 <form id="license-form" novalidate>
-                  <div class="form-row"><div class="field"><label for="license-token">License token</label><input id="license-token" name="license" type="text" autocomplete="off" spellcheck="false" required aria-describedby="license-help license-status"><span id="license-help">Paste the token from your receipt. It stays on this device.</span></div><button class="button secondary" type="submit">Verify license</button></div>
+                  <div class="form-row"><div class="field"><label for="license-token">License token</label><input id="license-token" name="license" type="text" autocomplete="off" spellcheck="false" required aria-describedby="license-help license-status"><span id="license-help">Paste a token from your receipt. It stays on this device.</span></div><button class="button secondary" type="submit">Verify license</button></div>
                 </form>
                 <p class="status" id="license-status" aria-live="polite">No license saved.</p>
-                <p><small>Sociobot/Dodo is the merchant of record. Refunds are handled there and revoke the license automatically. Read our <a href="/privacy/">privacy notice</a> and <a href="/terms/">terms</a>.</small></p>
+                <p><small>Sociobot and Dodo are the merchant of record. Read our <a href="/privacy/">privacy notice</a> and <a href="/terms/">terms</a>.</small></p>
               </div>
             </div>
           </div>
 
           <div class="planner" id="planner" hidden>
-            <div class="section-heading"><div><p class="eyebrow">Unlocked</p><h2>Your local planning room.</h2></div><p>Nothing in this workspace is uploaded. Import a CLI JSON report, make the plan, then print or save it in your usual project system.</p></div>
+            <div class="section-heading"><div><p class="eyebrow">Local plan</p><h2>Assign each dependency</h2></div><p>Import a CLI JSON report, make choices, then print or save the plan in this browser.</p></div>
             <form id="planner-import" novalidate>
               <div class="field"><label for="report-json">Exit Map JSON report</label><textarea id="report-json" required aria-describedby="planner-status" placeholder="Paste output from: supabase-exit-map . --json"></textarea></div>
               <div class="actions"><button class="button" type="submit">Build planning table</button><button class="button secondary" type="button" id="load-example">Load example</button></div>
             </form>
-            <p class="status" id="planner-status" aria-live="polite">Paste a report or load the example to begin.</p>
+            <p class="status" id="planner-status" aria-live="polite">Paste a report or load the example.</p>
             <div id="plan-output" hidden><div class="actions"><button class="button secondary" type="button" id="save-plan">Save on this device</button><button class="button secondary" type="button" id="print-plan">Print plan</button></div><div class="table-scroll"><table class="planner-table"><thead><tr><th scope="col">Dependency</th><th scope="col">Replacement</th><th scope="col">Owner</th><th scope="col">Status</th></tr></thead><tbody id="plan-body"></tbody></table></div></div>
           </div>
         </div>
       </section>
-
-      <section class="section faq" id="questions">
-        <div class="shell"><div class="section-heading"><div><p class="eyebrow">04 / Boundaries</p><h2>Before you point it at a repo.</h2></div><p>Exit Map is deliberately narrow: decision support before a migration, not a tool that quietly moves production data.</p></div>
-          <details><summary>Does it connect to Supabase?</summary><p>No. The scanner has no network code and accepts no credentials. It only reads files beneath the path you give it.</p></details>
-          <details><summary>Can it promise a complete inventory?</summary><p>It inventories what is represented locally and flags missing config, SQL, and functions. Dashboard-only settings, live data volume, sessions, and dynamic SQL still need the manual read-only checks included in every report.</p></details>
-          <details><summary>Does it perform the migration?</summary><p>No. Automatic live migration, hosting, and auth-data extraction are explicit non-goals. The output helps you estimate, choose replacements, and rehearse a controlled move.</p></details>
-          <details><summary>Is it affiliated with Supabase?</summary><p>No. Supabase is a trademark of Supabase, Inc. This independent project is not endorsed by or affiliated with Supabase.</p></details>
-        </div>
-      </section>
     </main>
 
-    <footer class="footer"><div class="shell footer-grid"><p>Supabase Exit Map is an independent, MIT-licensed planning utility. It helps you leave without pretending infrastructure is interchangeable.</p><div class="footer-links"><a href="https://github.com/B-Divyesh/sf-supabase-exit-map">Source</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></div></div></footer>
+    <footer class="footer"><div class="shell footer-grid"><p>Local Supabase dependency planning. Version 0.1.0.</p><div class="footer-links"><a href="https://github.com/B-Divyesh/sf-supabase-exit-map">Source code</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><span>Built by Param Factory</span></div></div></footer>
   </body>
 </html>

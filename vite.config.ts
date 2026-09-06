@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import { createHash } from "node:crypto";
 import { readFile, rm, writeFile } from "node:fs/promises";
 
-const publicShell = ["/", "/privacy/", "/terms/", "/assets/exit-route-900.webp", "/assets/exit-route.webp", "/favicon.svg"];
+const publicShell = ["/", "/demo/", "/privacy/", "/terms/", "/404.html", "/assets/exit-route-900.webp", "/assets/exit-route.webp", "/favicon.svg", "/apple-touch-icon.png"];
 const outputDirectory = resolve(import.meta.dirname, "dist/site");
 
 function precacheServiceWorker() {
@@ -61,8 +61,10 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(import.meta.dirname, "site/index.html"),
+        demo: resolve(import.meta.dirname, "site/demo/index.html"),
         privacy: resolve(import.meta.dirname, "site/privacy/index.html"),
-        terms: resolve(import.meta.dirname, "site/terms/index.html")
+        terms: resolve(import.meta.dirname, "site/terms/index.html"),
+        notFound: resolve(import.meta.dirname, "site/404.html")
       }
     }
   }

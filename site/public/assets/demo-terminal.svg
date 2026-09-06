@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="438" viewBox="0 0 1040 438" role="img" aria-labelledby="title desc">
+  <title id="title">Supabase Exit Map bundled demo</title>
+  <desc id="desc">A terminal command runs the bundled sample and produces eleven dependency findings.</desc>
+  <rect width="1040" height="438" rx="8" fill="#10211e"/>
+  <circle cx="34" cy="32" r="8" fill="#9c362f"/><circle cx="60" cy="32" r="8" fill="#815207"/><circle cx="86" cy="32" r="8" fill="#2f6a41"/>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" fill="#eaf5f1">
+    <text x="32" y="84" fill="#8bd7cd">$ supabase-exit-map --demo --format markdown</text>
+    <text x="32" y="124" fill="#b7c9c3">Bundled sample copied to /tmp/supabase-exit-map-demo-…</text>
+    <text x="32" y="156" fill="#b7c9c3">Demo report written to /tmp/…/exit-map-demo.md</text>
+    <text x="32" y="212" font-weight="700">Supabase exit map</text>
+    <text x="32" y="248">11 dependencies found · overall effort: high</text>
+    <text x="32" y="288" fill="#8bd7cd">High  Authentication configuration  replace</text>
+    <text x="32" y="320" fill="#8bd7cd">High  Object storage               replace</text>
+    <text x="32" y="352" fill="#f1c56e">Medium Realtime channels           replace</text>
+    <text x="32" y="404" fill="#b7c9c3">Review the report before a restore test or cutover.</text>
+  </g>
+</svg>
