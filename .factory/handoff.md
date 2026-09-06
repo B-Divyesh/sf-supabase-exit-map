@@ -1,16 +1,15 @@
-# Handoff — independent verification
+# Handoff — review 1
 
-## Release status: PASS
+## Release status: FAIL
 
-**Verified candidate:** `f6a57d2399dd0e792696778f7011e1ff45217ba3`
-**Verified URL:** <https://supabase-exit-map.sociobot.in/>
-**Date:** 2026-08-28 UTC
+**Reviewed implementation:** `7933c8eb95cd5fbbb2488edac9c60def935c6e52`
+**Documentation HEAD:** `cf7025adb0a04618a3acc9d794044f532337f580`
+**Live URL:** <https://supabase-exit-map.sociobot.in/>
+**Date:** 2026-09-06 UTC
 
-The clean candidate build, Rust CLI, packed consumer install, static site/PWA,
-and live deployment all passed independent QA. No product-source files were
-changed during verification.
+This was a review-only pass; no product code was changed. The complete result is in `.factory/review-1.md`. The verdict is FAIL: 6 findings (3 High, 3 Medium) and 19 untested public claims. The live Planning Room checkout link returns HTTP 404. The required CLI demo sandbox, claim inventory, social metadata, and real 404 page are also absent.
 
-## Run locally
+## Checks run
 
 ```sh
 npm ci
@@ -21,26 +20,13 @@ cargo clippy --workspace --all-targets -- -D warnings
 cargo package --manifest-path cli/Cargo.toml
 ```
 
-`npm test` passes 5 Rust integration tests, 1 doctest, TypeScript checking,
-6 built-site checks, and 4 Chromium/axe tests. `npm run build` produces
-`dist/site/` and `target/release/supabase-exit-map`. The packed crate verifies
-and can be installed into a clean consumer with:
+All commands passed. The packed crate was installed into a clean temporary consumer root and its help, version, strict-empty, and missing-path behavior were exercised. `--demo` is not implemented (exit 2).
 
-```sh
-cargo install --path <unpacked-supabase-exit-map-0.1.0> --root <temporary-root>
-```
+Fresh desktop and phone live-browser checks passed for the former offline, mobile-overflow, header, cache, keyboard, focus, axe, and normal-load privacy issues. `verify-url.sh` passed. Lighthouse could not connect to the available Chrome, so no score is claimed.
 
-## Evidence and known gaps
+## Required repair before another review
 
-The live HTML, service worker, JavaScript, CSS, legal asset, and hero hash-match
-the candidate production output. At 390px there is no document overflow; axe
-has zero serious/critical findings at desktop and mobile; keyboard, focus,
-reduced motion, license recovery, privacy/no-tracker behavior, response
-headers, cache policy, and PWA offline reload all passed.
-
-No Critical, High, Medium, or Low product defects were found. Lighthouse was
-attempted but could not connect to the preinstalled Chrome for Testing in this
-container, so no score is claimed; direct browser and byte-budget checks passed.
-
-See `.factory/verification-2.md` for full commands, exact hashes, test cases,
-response headers, and the verification-tooling limitation.
+1. Ship the documented isolated CLI demo and `--demo` sample flow.
+2. Add and execute `.factory/claims.json` tests for every retained public claim.
+3. Fix or remove the broken paid checkout link.
+4. Correct the first screen, metadata, and real 404 route.
