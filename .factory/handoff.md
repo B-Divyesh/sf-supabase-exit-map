@@ -3,6 +3,7 @@
 ## Release status
 
 Implementation SHA: d8a61fb3d596eae0953735dca6591d32cf481e5b
+Documentation report SHA: 4178f6b082be196d6a922398473fbb430529aa07
 
 The implementation is deployed at https://supabase-exit-map.sociobot.in/.
 
